@@ -1,20 +1,43 @@
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { reactive, ref, watchEffect } from 'vue';
+import axios from 'axios'
 
+const isCounting = ref(false)
+const count = ref(10)
+watchEffect(() => {
+  if (isCounting.value) {
+    const id = setInterval(() => {
+      if (count.value === 1) {
+        clearInterval(id)
+        isCounting.value = false
+        count.value = 10
+        return
+      }
+      count.value -= 1
+    }, 1000)
+  }
+})
 const postData = reactive({ email: '', code: '2' })
 const errors = reactive<{ email: string[], code: string[] }>({ email: [], code: [] })
 const hasError = (arr: any[]) => arr.length > 0
 const onSubmit = (e: Event) => {
   e.preventDefault();
+  axios.post('dev/api/v1/session', postData).then(res => {
+    console.log(res)
+  })
 }
 const sendCode = (e: Event) => {
   e.preventDefault()
-  if (postData.email === '') {
-    errors.email.push('请填写正确的邮箱')
-  } else {
-    console.log(postData.email)
-    errors.email = []
-  }
+  isCounting.value = true
+  // if (postData.email === '') {
+  // errors.email.push('请填写正确的邮箱')
+  // } else {
+  // errors.email = []
+  // axios.post('dev/api/v1/validation_codes', { email: postData.email }).then(res => {
+  // if(res.status === 200){
+  // }
+  // })
+  // }
 }
 </script>
 <template lang="">
@@ -33,7 +56,7 @@ const sendCode = (e: Event) => {
           <span class="form-item-content">
             <label for="code">验证码</label>
             <input v-model='postData.code' type="text" id="code" name="code">
-            <button @click="sendCode">发送验证码</button>
+            <button :disabled="isCounting" @click="sendCode">{{ isCounting ? count : '发送验证码'}}</button>
           </span>
           <div class="form-item-error">{{ errors.code[0] || '　' }}</div>
         </span>
