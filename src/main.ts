@@ -2,11 +2,11 @@ import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
 import { createRouter, createWebHashHistory } from 'vue-router';
-import HelloWorld from './components/HelloWorld.vue'
+import Home from './views/Home.vue'
 import Login from './views/Login.vue'
 // 路由文件
 const routes = [
-  { path: "/", component: HelloWorld  },
+  { path: "/", component: Home  },
   { path: "/login", component: Login },
 ];
 // 传入路由配置
