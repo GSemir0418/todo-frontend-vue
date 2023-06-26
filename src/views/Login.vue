@@ -2,6 +2,8 @@
 import { reactive, ref, watchEffect } from 'vue';
 import axios from 'axios'
 import { useRoute, useRouter } from 'vue-router';
+import Form from '../components/Form/Form.vue'
+import FormItem from '../components/Form/FormItem.vue'
 
 // 路由解析与跳转
 const route = useRoute();
@@ -42,11 +44,11 @@ const onSubmit = (e: Event) => {
     }
   }).catch(err => {
     console.log(err)
-    if(err.response.status){
+    if (err.response.status) {
       // 校验暂时完全依赖后端
       errors.code = []
       errors.email = []
-      Object.assign(errors, err.response.data.errors) 
+      Object.assign(errors, err.response.data.errors)
     }
   })
 }
@@ -62,9 +64,9 @@ const sendCode = (e: Event) => {
       errors.email = res.data.errors.email
     }
   }).catch(err => {
-    if(err.response.status){
+    if (err.response.status) {
       // 校验暂时完全依赖后端
-      errors.email = err.response.data.errors.email  
+      errors.email = err.response.data.errors.email
     }
   })
 }
@@ -73,24 +75,11 @@ const sendCode = (e: Event) => {
   <div class="wrapper">
     <div class="title">TODOs Login</div>
     <div class="form-container">
-      <form>
-        <span class="form-item">
-          <span class="form-item-content">
-            <label for="code">Email</label>
-            <input v-model='postData.email' type="text" id="email" name="email">
-          </span>
-          <div class="form-item-error">{{ errors.email[0] || '　' }}</div>
-        </span>
-        <span class="form-item code-input">
-          <span class="form-item-content">
-            <label for="code">验证码</label>
-            <input v-model='postData.code' type="text" id="code" name="code">
-            <button :disabled="isCounting" @click="sendCode">{{ isCounting ? count : '发送验证码' }}</button>
-          </span>
-          <div class="form-item-error">{{ errors.code[0] || '　' }}</div>
-        </span>
-        <button @click='onSubmit' class="form-submit-button" type="submit">登录</button>
-      </form>
+      <Form :onSubmit=onSubmit>
+        <FormItem id='email' type='text' label="Email" :error="errors.email[0]" v-model:value="postData.email" />
+        <FormItem id='code' type='code' label="验证码" :error="errors.code[0]" v-model:value="postData.code"
+          :sendCode="sendCode" :disabled="isCounting" :count="count" />
+      </Form>
     </div>
   </div>
 </template>
@@ -114,56 +103,5 @@ const sendCode = (e: Event) => {
 
 .wrapper .form-container {
   margin-top: 12px;
-}
-
-.form-item {
-  margin: 12px 24px;
-  display: flex;
-  flex-direction: column;
-}
-
-.form-item .form-item-content {
-  display: flex;
-  align-items: center;
-}
-
-.form-item .form-item-content label {
-  font-size: 18px;
-  font-weight: 550;
-  width: 64px;
-}
-
-.form-item .form-item-content input {
-  flex: 1;
-  padding-left: 12px;
-  height: 36px;
-  appearance: none;
-  border: 2px solid #777;
-  border-radius: 10px;
-}
-
-.form-item .form-item-content input:focus {
-  outline: none;
-  border: 2px solid #4f9b92
-}
-
-.form-item .form-item-content button {
-  margin-left: 12px;
-  border-radius: 10px;
-  height: 36px;
-  width: 90px;
-}
-
-.form-item .form-item-error {
-  margin-left: 64px;
-  color: red;
-  font-size: 12px;
-}
-
-.form-submit-button {
-  margin: 0 24px;
-  width: calc(100% - 48px);
-  height: 36px;
-  border-radius: 10px;
 }
 </style>
