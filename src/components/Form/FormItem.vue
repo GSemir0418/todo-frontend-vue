@@ -2,8 +2,15 @@
   <span class="form-item">
     <span class="form-item-content">
       <label :for="id">{{ label }}</label>
-      <input :value='value' @input="$emit('update:value', ($event.target as HTMLInputElement).value)" type="text" :id="id" :name="id">
-      <button v-if="type==='code'" :disabled="disabled" @click="sendCode">{{ disabled ? count : '发送验证码' }}</button>
+      <input 
+        :value='value' 
+        @input="$emit('update:value', ($event.target as HTMLInputElement).value)" 
+        type="text" 
+        :id="id"
+        :name="id"
+        :class="{'error-border': error}"
+      />
+      <button v-if="type === 'code'" :disabled="disabled" @click="sendCode">{{ disabled ? count : '发送验证码' }}</button>
     </span>
     <div class="form-item-error">{{ error || '　' }}</div>
   </span>
@@ -41,7 +48,9 @@ defineProps<{
   border: 2px solid #777;
   border-radius: 10px;
 }
-
+.form-item .form-item-content .error-border {
+  border: 2px solid red
+}
 .form-item .form-item-content input:focus {
   outline: none;
   border: 2px solid #4f9b92
@@ -59,4 +68,5 @@ defineProps<{
   color: red;
   font-size: 12px;
 }
+
 </style>
