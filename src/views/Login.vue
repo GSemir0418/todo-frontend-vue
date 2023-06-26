@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useRoute, useRouter } from 'vue-router';
 import Form from '../components/Form/Form.vue'
 import FormItem from '../components/Form/FormItem.vue'
+import MainLayout from '../components/MainLayout.vue';
 
 // 路由解析与跳转
 const route = useRoute();
@@ -72,7 +73,7 @@ const sendCode = (e: Event) => {
 }
 </script>
 <template>
-  <div class="wrapper">
+  <MainLayout classname="wrapper">
     <div class="title">TODOs Login</div>
     <div class="form-container">
       <Form :onSubmit=onSubmit>
@@ -81,20 +82,9 @@ const sendCode = (e: Event) => {
           :sendCode="sendCode" :disabled="isCounting" :count="count" />
       </Form>
     </div>
-  </div>
+  </MainLayout>
 </template>
 <style scoped>
-.wrapper {
-  height: 100vh;
-  background: #999;
-  padding-top: 66px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-
 .wrapper .title {
   text-align: center;
   font-size: 36px;
