@@ -2,30 +2,32 @@
 import { reactive, watchEffect } from 'vue';
 import { http } from '../lib/http'
 import MainLayout from '../components/MainLayout.vue';
+import { useRouter } from 'vue-router';
 
-const todoList = reactive([])
+const router = useRouter();
+const todoList = reactive<{todo: string, description: string}[]>([])
 
 watchEffect(() => {
   http.get<any>('/api/v1/items', { page: 1 }).then(res => {
     if (res.status === 200) {
-      todoList.concat(res.data.resources)
+      todoList.push(...res.data.resources)
+      console.log(todoList)
     }
-    console.log('res', res)
   })
 })
-const fakeData = [
-  { id: 1, todo: '事项1', description: '描述1' },
-  { id: 1, todo: '事项2', description: '描述2' },
-  { id: 1, todo: '事项3', description: '描述3' }
-]
+
+const handleAddClick = () => {
+  router.push("/new");
+}
 
 </script>
 <template>
   <MainLayout>
-    <ul v-for="item in fakeData">
-      <li>{{ item.todo }}</li>
+    <ul v-for="item in todoList">
+      <li><h4>{{ item.todo }}</h4></li>
+      <li>{{ item.description }}</li>
     </ul>
-    <div class="add-button"></div>
+    <div class="add-button" @click="handleAddClick"></div>
   </MainLayout>
 </template>
 <style scoped>

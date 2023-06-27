@@ -76,7 +76,7 @@ const sendCode = (e: Event) => {
   <MainLayout classname="wrapper">
     <div class="title">TODOs Login</div>
     <div class="form-container">
-      <Form :onSubmit=onSubmit>
+      <Form :onSubmit=onSubmit text="登录">
         <FormItem id='email' type='text' label="Email" :error="errors.email[0]" v-model:value="postData.email" />
         <FormItem id='code' type='code' label="验证码" :error="errors.code[0]" v-model:value="postData.code"
           :sendCode="sendCode" :disabled="isCounting" :count="count" />

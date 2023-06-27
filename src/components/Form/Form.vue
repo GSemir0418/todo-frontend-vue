@@ -1,11 +1,11 @@
 <template>
   <form>
     <slot></slot>
-    <button @click='onSubmit' class="form-submit-button" type="submit">登录</button>
+    <button @click='onSubmit' class="form-submit-button" type="submit">{{ text }}</button>
   </form>
 </template>
 <script setup lang="ts">
-defineProps<{ onSubmit: (e: Event) => void}>()
+defineProps<{ onSubmit: (e: Event) => void, text: string}>()
 </script>
 <style scoped>
   .form-submit-button {
