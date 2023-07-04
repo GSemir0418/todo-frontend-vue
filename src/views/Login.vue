@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { reactive, ref, watchEffect } from 'vue';
-import axios from 'axios'
+import { session } from '../api/session'
+import { sendValidationCode } from '../api/validationCodes'
 import { useRoute, useRouter } from 'vue-router';
 import Form from '../components/Form/Form.vue'
 import FormItem from '../components/Form/FormItem.vue'
@@ -31,7 +32,7 @@ const errors = reactive<{ email: string[], code: string[] }>({ email: [], code: 
 // 登录回调
 const onSubmit = (e: Event) => {
   e.preventDefault();
-  axios.post('dev/api/v1/session', postData).then(res => {
+  session(postData).then(res => {
     console.log(res)
     if (res.status === 200) {
       localStorage.setItem('jwt', res.data.jwt)
@@ -56,7 +57,7 @@ const onSubmit = (e: Event) => {
 // 发送验证码回调
 const sendCode = (e: Event) => {
   e.preventDefault()
-  axios.post('dev/api/v1/validation_codes', { email: postData.email }).then(res => {
+  sendValidationCode(postData.email).then(res => {
     if (res.status === 200) {
       errors.email = []
       isCounting.value = true
