@@ -10,7 +10,7 @@
         :name="id"
         :class="{'error-border': error}"
       />
-      <button v-if="type === 'code'" :disabled="disabled" @click="sendCode">{{ disabled ? count : 'Send Code' }}</button>
+      <button v-if="type === 'code'" :disabled="disabled" @click="sendCode">{{ disabled ? count : 'SEND' }}</button>
     </span>
     <div class="form-item-error">{{ error || '　' }}</div>
   </span>
@@ -24,7 +24,6 @@ defineProps<{
 </script>
 <style scoped>
 .form-item {
-  margin: 12px 24px;
   display: flex;
   flex-direction: column;
 }
@@ -42,7 +41,7 @@ defineProps<{
 
 .form-item .form-item-content input {
   flex: 1;
-  padding-left: 12px;
+  min-width: 0;
   height: 36px;
   appearance: none;
   border: 2px solid #777;

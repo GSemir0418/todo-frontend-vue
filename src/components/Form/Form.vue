@@ -5,13 +5,27 @@
   </form>
 </template>
 <script setup lang="ts">
-defineProps<{ onSubmit: (e: Event) => void, text: string}>()
+defineProps<{ onSubmit: (e: Event) => void, text: string }>()
 </script>
 <style scoped>
-  .form-submit-button {
-  margin: 0 24px;
-  width: calc(100% - 48px);
+form {
+  width: 100%;
+  position: relative;
+}
+
+.form-submit-button {
+  background-color: #b24747;
+  box-shadow: 2px 2px 1px 1px #641c1c;
+  width: 100%;
   height: 36px;
   border-radius: 10px;
+  transition: all 0.1s;
+  color: white;
+}
+
+.form-submit-button:active {
+  background: #641c1c;
+  transform: translateY(2px);
+  box-shadow: 1px 1px 1px 1px #641c1c;
 }
 </style>

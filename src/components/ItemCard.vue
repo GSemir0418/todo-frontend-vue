@@ -23,14 +23,21 @@ const onDelClick = (e: Event) => {
 <style scoped>
 .item-card {
   padding: 4px;
-  border: 1px solid red;
+  border: 2px solid #b24747;
   border-radius: 8px;
   margin-bottom: 8px;
-  box-shadow: 1px 1px 1px 1px red;
+  box-shadow: 3px 3px 1px 1px #641c1c;
   position: relative;
+  transition: all 0.2s;
+}
+.item-card:active {
+  background: #641c1c;
+  transform: translateY(2px);
+  box-shadow: 1px 1px 1px 1px #641c1c;
 }
 
 .item-card .item-card-todo {
+  color: white;
   font-size: 20px;
   margin-bottom: 4px;
 }
@@ -42,7 +49,7 @@ const onDelClick = (e: Event) => {
 }
 
 .item-card .item-card-del {
-  color: red;
+  color: #641c1c;
   position: absolute;
   right: 8px;
   top: calc(50% - 12px);

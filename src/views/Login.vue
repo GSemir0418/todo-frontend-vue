@@ -12,7 +12,7 @@ const route = useRoute();
 const router = useRouter();
 // 倒计时
 const isCounting = ref(false)
-const count = ref(10)
+const count = ref(60)
 watchEffect(() => {
   if (isCounting.value) {
     const id = setInterval(() => {
@@ -75,11 +75,11 @@ const sendCode = (e: Event) => {
 </script>
 <template>
   <MainLayout classname="wrapper">
-    <div class="title">TODOs Login</div>
+    <div class="title">TODO LOGIN</div>
     <div class="form-container">
-      <Form :onSubmit=onSubmit text="Sign in">
-        <FormItem id='email' type='text' label="Email" :error="errors.email[0]" v-model:value="postData.email" />
-        <FormItem id='code' type='code' label="Code" :error="errors.code[0]" v-model:value="postData.code"
+      <Form :onSubmit=onSubmit text="SIGN IN">
+        <FormItem id='email' type='text' label="EMAIL" :error="errors.email[0]" v-model:value="postData.email" />
+        <FormItem id='code' type='code' label="CODE" :error="errors.code[0]" v-model:value="postData.code"
           :sendCode="sendCode" :disabled="isCounting" :count="count" />
       </Form>
     </div>
@@ -94,5 +94,6 @@ const sendCode = (e: Event) => {
 
 .wrapper .form-container {
   margin-top: 12px;
+  width: 100%;
 }
 </style>

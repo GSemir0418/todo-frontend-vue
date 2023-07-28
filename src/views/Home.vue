@@ -22,20 +22,44 @@ const handleAddClick = () => {
 }
 
 const removeTodo = (id: number) => {
-  console.log(todoList.filter(todo => todo.id !== id))
-  Object.assign(todoList, todoList.filter(todo => todo.id !== id))
+  todoList.splice(todoList.findIndex(todo => todo.id === id), 1)
 }
 
 </script>
 <template>
   <MainLayout>
-    <div v-for="item in todoList" class="item-card-container">
-      <ItemCard @update:todo-list="removeTodo" :id="item.id" :todo="item.todo" :description="item.description" />
+    <div class="home-container">
+      <div class="item-title">Todo List</div>
+      <div v-for="item in todoList" class="item-card-container">
+        <ItemCard @update:todo-list="removeTodo" :id="item.id" :todo="item.todo" :description="item.description" />
+      </div>
+      <div class="add-button" @click="handleAddClick">+</div>
     </div>
-    <div class="add-button" @click="handleAddClick"></div>
   </MainLayout>
 </template>
 <style scoped>
+.home-container .item-title {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 48px;
+}
+
+.home-container {
+  width: 100%;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: scroll;
+}
+
+.home-container .item-card-container {
+  width: 80%;
+}
+
 .add-button {
   position: fixed;
   right: 12px;
@@ -43,10 +67,18 @@ const removeTodo = (id: number) => {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: #444;
+  background: #b24747;
+  box-shadow: 2px 2px 1px 1px #641c1c;
+  text-align: center;
+  font-size: 50px;
+  line-height: 50px;
+  color: white;
+  transition: all 0.2s;
 }
 
-.item-card-container {
-  width: 80%;
+.add-button:active {
+  background: #641c1c;
+  transform: translateY(2px);
+  box-shadow: 1px 1px 1px 1px #641c1c;
 }
 </style>

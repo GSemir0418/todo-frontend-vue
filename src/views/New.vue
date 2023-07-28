@@ -1,8 +1,8 @@
 <template>
   <MainLayout>
-    <Form :onSubmit="onSubmit" text="创建">
-      <FormItem label="标题" id="todo" name="todo" v-model:value="postData.todo" :error="errors.todo[0]" type="text" />
-      <FormItem label="描述" id="description" name="description" v-model:value="postData.description"
+    <Form :onSubmit="onSubmit" text="CREATE">
+      <FormItem label="TODO" id="todo" name="todo" v-model:value="postData.todo" :error="errors.todo[0]" type="text" />
+      <FormItem label="DESC" id="description" name="description" v-model:value="postData.description"
         :error="errors.description[0]" type="text" />
     </Form>
   </MainLayout>

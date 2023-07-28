@@ -18,11 +18,11 @@ const classNames = computed(() => {
 .main-layout {
   height: 100vh;
   background: #999;
-  padding-top: 66px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  padding: 66px 12px 0 12px;
 }
 </style>
