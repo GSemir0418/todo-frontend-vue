@@ -3,9 +3,10 @@ import { reactive, watchEffect } from 'vue';
 import MainLayout from '../components/MainLayout.vue';
 import { useRouter } from 'vue-router';
 import { getItems } from '../api/items'
+import ItemCard from '../components/ItemCard.vue';
 
 const router = useRouter();
-const todoList = reactive<{todo: string, description: string}[]>([])
+const todoList = reactive<{ id: number, todo: string, description: string }[]>([])
 
 watchEffect(() => {
   getItems(1).then(res => {
@@ -20,13 +21,17 @@ const handleAddClick = () => {
   router.push("/new");
 }
 
+const removeTodo = (id: number) => {
+  console.log(todoList.filter(todo => todo.id !== id))
+  Object.assign(todoList, todoList.filter(todo => todo.id !== id))
+}
+
 </script>
 <template>
   <MainLayout>
-    <ul v-for="item in todoList">
-      <li><h4>{{ item.todo }}</h4></li>
-      <li>{{ item.description }}</li>
-    </ul>
+    <div v-for="item in todoList" class="item-card-container">
+      <ItemCard @update:todo-list="removeTodo" :id="item.id" :todo="item.todo" :description="item.description" />
+    </div>
     <div class="add-button" @click="handleAddClick"></div>
   </MainLayout>
 </template>
@@ -39,5 +44,9 @@ const handleAddClick = () => {
   height: 50px;
   border-radius: 50%;
   background: #444;
+}
+
+.item-card-container {
+  width: 80%;
 }
 </style>

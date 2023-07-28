@@ -32,6 +32,19 @@ export class Http {
     })
   }
 
+  delete<R = unknown>(
+    url: string, 
+    query?: Record<string, string>, 
+    config?: Omit<AxiosRequestConfig, 'params'>
+  ) {
+    return this.instance.request<R>({ 
+      ...config, 
+      url, 
+      params: query, 
+      method: 'delete' 
+    })
+  }
+
 }
 
 export const http = new Http('/dev')
