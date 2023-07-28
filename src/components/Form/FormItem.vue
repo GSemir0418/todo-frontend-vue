@@ -10,7 +10,7 @@
         :name="id"
         :class="{'error-border': error}"
       />
-      <button v-if="type === 'code'" :disabled="disabled" @click="sendCode">{{ disabled ? count : '发送验证码' }}</button>
+      <button v-if="type === 'code'" :disabled="disabled" @click="sendCode">{{ disabled ? count : 'Send Code' }}</button>
     </span>
     <div class="form-item-error">{{ error || '　' }}</div>
   </span>
