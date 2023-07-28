@@ -1,12 +1,18 @@
 <template>
   <form>
     <slot></slot>
-    <button @click='onSubmit' class="form-submit-button" type="submit">{{ text }}</button>
+    <button @click='throttledFunc' class="form-submit-button" type="submit">{{ text }}</button>
   </form>
 </template>
+
 <script setup lang="ts">
-defineProps<{ onSubmit: (e: Event) => void, text: string }>()
+import { throttle } from '../../lib/throttle';
+
+const { onSubmit } = defineProps<{ onSubmit: (e: Event) => void, text: string }>()
+// 节流
+const throttledFunc = throttle(onSubmit, 2000)
 </script>
+
 <style scoped>
 form {
   width: 100%;

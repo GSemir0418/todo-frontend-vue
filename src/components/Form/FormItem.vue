@@ -66,6 +66,7 @@ defineProps<{
   margin-left: 64px;
   color: red;
   font-size: 12px;
+  height: 16px;
 }
 
 </style>
