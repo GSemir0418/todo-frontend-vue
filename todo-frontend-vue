@@ -1,0 +1,18 @@
+server {
+        # 监听 8080 端口（ipv4 和 ipv6）
+        listen 8080;
+        # 静态资源根目录
+        root /var/www/todo-frontend-vue/html;
+        # 设置默认文件的名称
+        index index.html index.htm index.nginx-debian.html;
+
+        # 匹配到根目录时的配置
+        location / {
+                # 指令用于尝试查找指定的文件。它按照给定的顺序依次尝试 $uri 和 $uri/ 两个参数，并返回第一个存在的文件。如果都找不到，则返回HTTP状态码404。
+                try_files $uri $uri/ =404;
+        }
+        # 后端代理
+        location /api {
+                proxy_pass http://localhost:8888/api;
+        }
+}
