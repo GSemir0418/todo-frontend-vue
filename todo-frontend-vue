@@ -12,7 +12,7 @@ server {
                 try_files $uri $uri/ =404;
         }
         # 后端代理
-        location /api {
-                proxy_pass http://localhost:8888/api;
+        location /dev {
+                proxy_pass http://localhost:3000/;
         }
 }

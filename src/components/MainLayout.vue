@@ -23,6 +23,6 @@ const classNames = computed(() => {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  padding: 66px 12px 0 12px;
+  padding: 0 12px 0 12px;
 }
 </style>
